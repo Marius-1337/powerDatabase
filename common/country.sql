@@ -1,6 +1,8 @@
 -- 02/05/2024 / MKroon
 -- Ripped from https://github.com/derwyddon/postgreql_countries.sql
 
+SET SCHEMA 'common';
+
 START TRANSACTION;
 SET standard_conforming_strings=off;
 SET escape_string_warning=off;
