@@ -1,6 +1,5 @@
 "PU EIC Code","PU Name","Valid From","Valid To","PU Status","PU Type","PU Location","PU Installed
-Capacity","Control Area","Bidding Zone","Last Update","PU Voltage","GU Code","GU Name","GU Status","GU Type","GU Location","GU Installed
-Capacity"
+Capacity","Control Area","Bidding Zone","Last Update","PU Voltage","GU Code","GU Name","GU Status","GU Type","GU Location","GU Installed Capacity"
 "14W-WGM-KW-----J","GDK-Mellach","01.10.2018","Infinity","COMMISSIONED","B04","intra_zonal","838.00","10YAT-APG------L","10YAT-APG------L","","380.00","14W-WGM2-M1----X","GDK-Mellach Linie 20","COMMISSIONED","B04","intra_zonal","417.00"
 "14W-WGM-KW-----J","GDK-Mellach","01.10.2018","Infinity","COMMISSIONED","B04","intra_zonal","838.00","10YAT-APG------L","10YAT-APG------L","","380.00","14W-WGM1-M1----5","GDK-Mellach Linie 10","COMMISSIONED","B04","intra_zonal","421.00"
 "14W-BOW-KW-----9","Ottensheim-Wilhering","01.10.2018","Infinity","COMMISSIONED","B11","intra_zonal","179.00","10YAT-APG------L","10YAT-APG------L","","110.00","14W-BOW-TU-----P","Ottensheim-Wilhering","COMMISSIONED","B11","intra_zonal","179.00"
