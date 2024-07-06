@@ -7,6 +7,14 @@ Todo:
 - check if create statement for timescaledb tables needs anything additional
 - check if Italian regions (regions in general) need validity dates (when created, when cease to exist)
 
+
+Have psql installed: 
+brew update
+brew install libpq
+brew link --force libpq
+
+psql should be working from command line
+
 Create a .pgpass in your homedirectory. 
 The .pgpass file is a plain text file that contains one or more lines with the following format:
 
