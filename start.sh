@@ -4,17 +4,10 @@ set -e
 set -u
 export $(grep -v '^#' .env | xargs)
 
-echo "=================="
-echo ${POWER_PASS}
-echo ${POWER_ADMIN}
-echo ${POWER_DB}
-echo "=================="
-
-
 # Check if user defined in POWER_ADMIN exists
 # if exist, skip, else create
 if psql -h ${POSTGRES_HOST} -U ${POSTGRES_ADMIN} -d ${POSTGRES_DB} -t -c '\du' | cut -d \| -f 1 | grep -qw ${POWER_ADMIN}; then 
-   echo "Admin user ${POWER_ADMIN} already exists"
+   echo "Admin user ${POWER_ADMIN} already exists, skipping creation"
 else
    echo "Creating user "${POWER_ADMIN}
    psql -h ${POSTGRES_HOST} -U ${POSTGRES_ADMIN} -d ${POSTGRES_DB} -c "CREATE USER ${POWER_ADMIN} WITH PASSWORD '${POWER_PASS}';"
@@ -35,6 +28,8 @@ else
 fi
 
 export PGPASSWORD=${POWER_PASS}
-psql -h ${POSTGRES_HOST} -U ${POWER_ADMIN} -d ${POWER_DB} -f createdatabase.sql >> 2&>1
+psql -h ${POSTGRES_HOST} -U ${POWER_ADMIN} -d ${POWER_DB} -f createdatabase.sql 2>&1 > /dev/null
 
+
+unset PGPASSWORD
 unset $(grep -v '^#' .env | sed -E 's/(.*)=.*/\1/' | xargs)

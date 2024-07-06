@@ -9,11 +9,6 @@ SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
 
---
--- TOC entry 7 (class 2615 OID 16392)
--- Name: area; Type: SCHEMA; Schema: -; Owner: postgres
---
-
 CREATE SCHEMA area; ALTER SCHEMA area OWNER to poweradmin;
 CREATE SCHEMA border; ALTER SCHEMA border OWNER to poweradmin;
 CREATE SCHEMA common; ALTER SCHEMA common OWNER to poweradmin;
