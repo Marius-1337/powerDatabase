@@ -8,12 +8,15 @@ Todo:
 
 Ensure pqsl is installed
 Have psql installed: 
+```
 brew update
 brew install libpq
 brew link --force libpq
+```
 then add it to your path, something such as (might vary on your system)
+```
 echo 'export PATH="/opt/homebrew/opt/libpq/bin:$PATH"' >> ~/.zshrc
-
+```
 psql should be working from command line
 
 Have .pgpass and .env in working dir
