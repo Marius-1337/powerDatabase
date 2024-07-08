@@ -62,7 +62,7 @@ if [ -f ".env" ]; then
         echo "Inserting common.fueltypes"
         psql -h ${POSTGRES_HOST} -U ${POWER_ADMIN} -d ${POWER_DB} -f common/insert_fueltype_records.sql 2>&1 > /dev/null
     fi
-    # cleanup on isle 5
+    # cleanup crew to isle 5
     printf "unsetting variables\n"
     unset PGPASSWORD
     unset $(grep -v '^#' .env | sed -E 's/(.*)=.*/\1/' | xargs)
