@@ -1,3 +1,11 @@
+SET SCHEMA 'common';
+
+START TRANSACTION;
+
+SET standard_conforming_strings=off;
+SET escape_string_warning=off;
+SET CONSTRAINTS ALL DEFERRED;
+
 
 CREATE TABLE common.border (
     id serial4 NOT NULL,
@@ -20,8 +28,7 @@ ALTER TABLE common.border ADD CONSTRAINT area_from_fk FOREIGN KEY (fromarea) REF
 ALTER TABLE common.border ADD CONSTRAINT area_to_fk FOREIGN KEY (toarea) REFERENCES common.area(eic);
 ALTER TABLE common.border ADD CONSTRAINT border_datasource_fk FOREIGN KEY(datasource) REFERENCES common.datasource(id);
 
-
-INSERT INTO common.border ("name", fromarea, toarea, datasource, lastupdate) VALUES('', '', '', '');
+COMMIT;
 
 INSERT INTO common.border ("name", fromarea, toarea, datasource, lastupdate) VALUES('AL-GR','10YAL-KESH-----5','10YGR-HTSO-----Y',1,'2024-05-28');
 INSERT INTO common.border ("name", fromarea, toarea, datasource, lastupdate) VALUES('AL-ME','10YAL-KESH-----5','10YCS-CG-TSO---S',1,'2024-05-28');

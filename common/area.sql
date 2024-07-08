@@ -1,6 +1,8 @@
 -- Table: common.area
+SET SCHEMA 'common';
 
 START TRANSACTION;
+
 SET standard_conforming_strings=off;
 SET escape_string_warning=off;
 SET CONSTRAINTS ALL DEFERRED;
@@ -155,12 +157,10 @@ INSERT INTO common.area (eic, name, countrycode) VALUES('50Y0JVU59B4JWQCU','NO2N
 
 -- No idea what to do with these ¯\_(ツ)_/¯
 -- these have not been inserted into the area table, should go somewhere else, if they are needed at all.
-INSERT INTO common.area (eic, name, countrycode) VALUES('10Y1001A1001A91G','Nordic',                --  SNA|Nordic, REG|Nordic, LFB|Nordic
-INSERT INTO common.area (eic, name, countrycode) VALUES('10Y1001C--00059P','CORE',                  --  REG|CORE
-INSERT INTO common.area (eic, name, countrycode) VALUES('10Y1001C--00090V','AFRR',                  --  REG|AFRR, SCA|AFRR
-INSERT INTO common.area (eic, name, countrycode) VALUES('10YDOM-REGION-1V','CWE',                   --  REG|CWE
-INSERT INTO common.area (eic, name, countrycode) VALUES('10YEU-CONT-SYNC0','Continental Europe',    --  SNA|Continental Europe
-INSERT INTO common.area (eic, name, countrycode) VALUES('10Y1001C--00119X','IN',                    --  SCA|IN
-INSERT INTO common.area (eic, name, countrycode) VALUES('9999999999999999','IS','IS'                --  Iceland (IS)
-
-
+--INSERT INTO common.area (eic, name, countrycode) VALUES('10Y1001A1001A91G','Nordic',                --  SNA|Nordic, REG|Nordic, LFB|Nordic
+--INSERT INTO common.area (eic, name, countrycode) VALUES('10Y1001C--00059P','CORE',                  --  REG|CORE
+--INSERT INTO common.area (eic, name, countrycode) VALUES('10Y1001C--00090V','AFRR',                  --  REG|AFRR, SCA|AFRR
+--INSERT INTO common.area (eic, name, countrycode) VALUES('10YDOM-REGION-1V','CWE',                   --  REG|CWE
+--INSERT INTO common.area (eic, name, countrycode) VALUES('10YEU-CONT-SYNC0','Continental Europe',    --  SNA|Continental Europe
+--INSERT INTO common.area (eic, name, countrycode) VALUES('10Y1001C--00119X','IN',                    --  SCA|IN
+--INSERT INTO common.area (eic, name, countrycode) VALUES('9999999999999999','IS','IS'                --  Iceland (IS)
