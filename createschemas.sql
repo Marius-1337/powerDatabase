@@ -11,20 +11,14 @@ SET row_security = off;
 SET escape_string_warning=off;
 SET default_tablespace = '';
 SET default_table_access_method = heap;
-SET SCHEMA 'common';
 
 START TRANSACTION;
 
-CREATE TABLE IF NOT EXISTS common.datasource (
-	id serial4 NOT NULL,
-	name varchar NOT NULL,
-	fullname varchar NULL,
-  	url varchar NULL,
-  	owner varchar NOT NULL,
-  	lastupdate timestamptz NOT NULL,
-	CONSTRAINT datasource_pk PRIMARY KEY (id)
-);
-
-INSERT INTO common.datasource ("name", fullname, url, "owner", lastupdate) VALUES('ENTSO-e', 'ENTSO-e', 'entsoe.eu', 'Marius', '2024-05-07 00:00:00.000');
+SET SCHEMA 'common';
+CREATE SCHEMA IF NOT EXISTS area; ALTER SCHEMA area OWNER to poweradmin;
+CREATE SCHEMA IF NOT EXISTS border; ALTER SCHEMA border OWNER to poweradmin;
+CREATE SCHEMA IF NOT EXISTS common; ALTER SCHEMA common OWNER to poweradmin;
+CREATE SCHEMA IF NOT EXISTS unit; ALTER SCHEMA unit OWNER to poweradmin;
+CREATE SCHEMA IF NOT EXISTS market; ALTER SCHEMA market OWNER to poweradmin;
 
 COMMIT;

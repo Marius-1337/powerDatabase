@@ -1,0 +1,45 @@
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+SET escape_string_warning=off;
+SET default_tablespace = '';
+SET default_table_access_method = heap;
+
+START TRANSACTION;
+SET SCHEMA 'common';
+
+INSERT INTO common.fueltype(name) VALUES('Mixed') ON CONFLICT (name) DO NOTHING;
+INSERT INTO common.fueltype(name) VALUES('Generation') ON CONFLICT (name) DO NOTHING;
+INSERT INTO common.fueltype(name) VALUES('Load') ON CONFLICT (name) DO NOTHING;
+INSERT INTO common.fueltype(name) VALUES('Biomass') ON CONFLICT (name) DO NOTHING;
+INSERT INTO common.fueltype(name) VALUES('Fossil Brown coal/Lignite') ON CONFLICT (name) DO NOTHING;
+INSERT INTO common.fueltype(name) VALUES('Fossil Coal-derived gas') ON CONFLICT (name) DO NOTHING;
+INSERT INTO common.fueltype(name) VALUES('Fossil Gas') ON CONFLICT (name) DO NOTHING;
+INSERT INTO common.fueltype(name) VALUES('Fossil Hard coal') ON CONFLICT (name) DO NOTHING;
+INSERT INTO common.fueltype(name) VALUES('Fossil Oil') ON CONFLICT (name) DO NOTHING;
+INSERT INTO common.fueltype(name) VALUES('Fossil Oil shale') ON CONFLICT (name) DO NOTHING;
+INSERT INTO common.fueltype(name) VALUES('Fossil Peat') ON CONFLICT (name) DO NOTHING;
+INSERT INTO common.fueltype(name) VALUES('Geothermal') ON CONFLICT (name) DO NOTHING;
+INSERT INTO common.fueltype(name) VALUES('Hydro Pumped Storage') ON CONFLICT (name) DO NOTHING;
+INSERT INTO common.fueltype(name) VALUES('Hydro Run-of-river and poundage') ON CONFLICT (name) DO NOTHING;
+INSERT INTO common.fueltype(name) VALUES('Hydro Water Reservoir') ON CONFLICT (name) DO NOTHING;
+INSERT INTO common.fueltype(name) VALUES('Marine') ON CONFLICT (name) DO NOTHING;
+INSERT INTO common.fueltype(name) VALUES('Nuclear') ON CONFLICT (name) DO NOTHING;
+INSERT INTO common.fueltype(name) VALUES('Other renewable') ON CONFLICT (name) DO NOTHING;
+INSERT INTO common.fueltype(name) VALUES('Solar') ON CONFLICT (name) DO NOTHING;
+INSERT INTO common.fueltype(name) VALUES('Waste') ON CONFLICT (name) DO NOTHING;
+INSERT INTO common.fueltype(name) VALUES('Wind Offshore') ON CONFLICT (name) DO NOTHING;
+INSERT INTO common.fueltype(name) VALUES('Wind Onshore') ON CONFLICT (name) DO NOTHING;
+INSERT INTO common.fueltype(name) VALUES('Other') ON CONFLICT (name) DO NOTHING;
+INSERT INTO common.fueltype(name) VALUES('AC Link') ON CONFLICT (name) DO NOTHING;
+INSERT INTO common.fueltype(name) VALUES('DC Link') ON CONFLICT (name) DO NOTHING;
+INSERT INTO common.fueltype(name) VALUES('Substation') ON CONFLICT (name) DO NOTHING;
+
+COMMIT;

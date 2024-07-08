@@ -27,22 +27,30 @@ else
     psql -h ${POSTGRES_HOST} -U ${POSTGRES_ADMIN} -d ${POSTGRES_DB} -c "GRANT ALL PRIVILEGES ON DATABASE ${POWER_DB} TO ${POWER_ADMIN};" 
 fi
 
+#Switching to POWER_DB database
 export PGPASSWORD=${POWER_PASS}
-psql -h ${POSTGRES_HOST} -U ${POWER_ADMIN} -d ${POWER_DB} -f createdatabase.sql 2>&1 > /dev/null
-echo "Creating country and continent tables"
-psql -h ${POSTGRES_HOST} -U ${POWER_ADMIN} -d ${POWER_DB} -f common/country.sql 2>&1 > /dev/null
-echo "Creating area table"
-psql -h ${POSTGRES_HOST} -U ${POWER_ADMIN} -d ${POWER_DB} -f common/area.sql 2>&1 > /dev/null
-psql -h ${POSTGRES_HOST} -U ${POWER_ADMIN} -d ${POWER_DB} -f common/datasource.sql 2>&1 > /dev/null
-psql -h ${POSTGRES_HOST} -U ${POWER_ADMIN} -d ${POWER_DB} -f common/border.sql 2>&1 > /dev/null
-psql -h ${POSTGRES_HOST} -U ${POWER_ADMIN} -d ${POWER_DB} -f common/border.sql 2>&1 > /dev/null
-echo "Creating fueltype table"
-psql -h ${POSTGRES_HOST} -U ${POWER_ADMIN} -d ${POWER_DB} -f common/fueltype.sql 2>&1 > /dev/null
+echo "Creating schemas"
+psql -h ${POSTGRES_HOST} -U ${POWER_ADMIN} -d ${POWER_DB} -f createschemas.sql 2>&1 > /dev/null
 
+echo "Creating common.country and common.continent tables"
+psql -h ${POSTGRES_HOST} -U ${POWER_ADMIN} -d ${POWER_DB} -f common/country.sql 2>&1 > /dev/null
+echo "Creating common.area table"
+psql -h ${POSTGRES_HOST} -U ${POWER_ADMIN} -d ${POWER_DB} -f common/area.sql 2>&1 > /dev/null
+echo "Creating common.datasource table"
+psql -h ${POSTGRES_HOST} -U ${POWER_ADMIN} -d ${POWER_DB} -f common/datasource.sql 2>&1 > /dev/null
+echo "Creating common.border table"
+psql -h ${POSTGRES_HOST} -U ${POWER_ADMIN} -d ${POWER_DB} -f common/border.sql 2>&1 > /dev/null
+echo "Creating common.fueltype table"
+psql -h ${POSTGRES_HOST} -U ${POWER_ADMIN} -d ${POWER_DB} -f common/fueltype.sql 2>&1 > /dev/null
+echo "Creating common.powerplant table"
+psql -h ${POSTGRES_HOST} -U ${POWER_ADMIN} -d ${POWER_DB} -f common/powerplant.sql 2>&1 > /dev/null
+echo "Creating common.unit table"
+psql -h ${POSTGRES_HOST} -U ${POWER_ADMIN} -d ${POWER_DB} -f common/unit.sql 2>&1 > /dev/null
 
 echo "Setting area attributes"
-psql -h ${POSTGRES_HOST} -U ${POWER_ADMIN} -d ${POWER_DB} -f common/area-setattributes.sql 2>&1 > /dev/null
-
+psql -h ${POSTGRES_HOST} -U ${POWER_ADMIN} -d ${POWER_DB} -f common/setattributes_area.sql 2>&1 > /dev/null
+echo "Inserting fueltypes"
+psql -h ${POSTGRES_HOST} -U ${POWER_ADMIN} -d ${POWER_DB} -f common/insert_fueltype_records.sql 2>&1 > /dev/null
 
 unset PGPASSWORD
 unset $(grep -v '^#' .env | sed -E 's/(.*)=.*/\1/' | xargs)
