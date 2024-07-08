@@ -39,7 +39,6 @@ if [ -f ".env" ]; then
         export PGPASSWORD=${POWER_PASS}
         echo "Creating schemas"
         psql -h ${POSTGRES_HOST} -U ${POWER_ADMIN} -d ${POWER_DB} -f createschemas.sql 2>&1 > /dev/null
-
         echo "Creating common.country and common.continent tables"
         psql -h ${POSTGRES_HOST} -U ${POWER_ADMIN} -d ${POWER_DB} -f common/country.sql 2>&1 > /dev/null
         echo "Creating common.area table"
@@ -54,14 +53,13 @@ if [ -f ".env" ]; then
         psql -h ${POSTGRES_HOST} -U ${POWER_ADMIN} -d ${POWER_DB} -f common/powerplant.sql 2>&1 > /dev/null
         echo "Creating common.unit table"
         psql -h ${POSTGRES_HOST} -U ${POWER_ADMIN} -d ${POWER_DB} -f common/unit.sql 2>&1 > /dev/null
-
-        echo "Inserting area records"
+        echo "Inserting common.area records"
         psql -h ${POSTGRES_HOST} -U ${POWER_ADMIN} -d ${POWER_DB} -f common/insert_area_records.sql 2>&1 > /dev/null
-        echo "Setting area attributes"
+        echo "Setting common.area attributes"
         psql -h ${POSTGRES_HOST} -U ${POWER_ADMIN} -d ${POWER_DB} -f common/setattributes_area.sql 2>&1 > /dev/null
-        echo "Inserting border records"
+        echo "Inserting common.border records"
         psql -h ${POSTGRES_HOST} -U ${POWER_ADMIN} -d ${POWER_DB} -f common/insert_border_records.sql 2>&1 > /dev/null
-        echo "Inserting fueltypes"
+        echo "Inserting common.fueltypes"
         psql -h ${POSTGRES_HOST} -U ${POWER_ADMIN} -d ${POWER_DB} -f common/insert_fueltype_records.sql 2>&1 > /dev/null
     fi
     # cleanup on isle 5
