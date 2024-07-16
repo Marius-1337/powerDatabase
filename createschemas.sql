@@ -22,3 +22,28 @@ CREATE SCHEMA IF NOT EXISTS unit; ALTER SCHEMA unit OWNER to poweradmin;
 CREATE SCHEMA IF NOT EXISTS market; ALTER SCHEMA market OWNER to poweradmin;
 
 COMMIT;
+
+START TRANSACTION;
+
+CREATE USER grafanareader WITH PASSWORD 'access123';
+GRANT USAGE ON SCHEMA area TO grafanareader;
+GRANT USAGE ON SCHEMA border TO grafanareader;
+GRANT USAGE ON SCHEMA common TO grafanareader;
+GRANT USAGE ON SCHEMA unit TO grafanareader;
+GRANT USAGE ON SCHEMA market TO grafanareader;
+
+GRANT SELECT ON ALL TABLES IN SCHEMA common TO grafanareader;
+GRANT SELECT ON ALL TABLES IN SCHEMA area TO grafanareader
+GRANT SELECT ON ALL TABLES IN SCHEMA border TO grafanareader;
+GRANT SELECT ON ALL TABLES IN SCHEMA unit TO grafanareader;
+GRANT SELECT ON ALL TABLES IN SCHEMA market TO grafanareader;
+
+ALTER DEFAULT PRIVILEGES IN SCHEMA common GRANT SELECT on tables TO grafanareader;
+ALTER DEFAULT PRIVILEGES IN SCHEMA area GRANT SELECT on tables TO grafanareader;
+ALTER DEFAULT PRIVILEGES IN SCHEMA border GRANT SELECT on tables TO grafanareader;
+ALTER DEFAULT PRIVILEGES IN SCHEMA unit GRANT SELECT on tables TO grafanareader;
+ALTER DEFAULT PRIVILEGES IN SCHEMA market GRANT SELECT on tables TO grafanareader;
+
+ALTER ROLE grafanareader SET search_path = common,area,border,unit,market;
+
+COMMIT;
