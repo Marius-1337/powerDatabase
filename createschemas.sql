@@ -33,7 +33,7 @@ GRANT USAGE ON SCHEMA unit TO grafanareader;
 GRANT USAGE ON SCHEMA market TO grafanareader;
 
 GRANT SELECT ON ALL TABLES IN SCHEMA common TO grafanareader;
-GRANT SELECT ON ALL TABLES IN SCHEMA area TO grafanareader
+GRANT SELECT ON ALL TABLES IN SCHEMA area TO grafanareader;
 GRANT SELECT ON ALL TABLES IN SCHEMA border TO grafanareader;
 GRANT SELECT ON ALL TABLES IN SCHEMA unit TO grafanareader;
 GRANT SELECT ON ALL TABLES IN SCHEMA market TO grafanareader;
@@ -45,5 +45,8 @@ ALTER DEFAULT PRIVILEGES IN SCHEMA unit GRANT SELECT on tables TO grafanareader;
 ALTER DEFAULT PRIVILEGES IN SCHEMA market GRANT SELECT on tables TO grafanareader;
 
 ALTER ROLE grafanareader SET search_path = common,area,border,unit,market;
+
+GRANT ALL ON SCHEMA market TO poweradmin;
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA market to poweradmin;
 
 COMMIT;
