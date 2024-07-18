@@ -315,12 +315,10 @@ INSERT INTO country (code, name, full_name, iso3, iso_number, continent) VALUES 
 -- PostgreSQL database dump complete
 --
 
-
 COMMIT;
 START TRANSACTION;
 
 -- Typecasts --
-
 -- Foreign keys --
 ALTER TABLE "country" DROP CONSTRAINT IF EXISTS "country_ibfk_1";
 ALTER TABLE "country" ADD CONSTRAINT "country_ibfk_1" FOREIGN KEY ("continent") REFERENCES "continent" ("code") ON UPDATE CASCADE DEFERRABLE INITIALLY DEFERRED;
