@@ -5,7 +5,7 @@ CREATE TABLE market.DAPrices (
 	price float NOT NULL, 
 	datasource serial4 NOT NULL,
 	UNIQUE(creation_ts,actual_ts,area,datasource),
-    CONSTRAINT area_actual_generation_pk PRIMARY KEY (creation_ts,actual_ts,area,datasource)
+    CONSTRAINT market_DA_pk PRIMARY KEY (creation_ts,actual_ts,area,datasource)
 );
 
 -- common.border foreign keys
