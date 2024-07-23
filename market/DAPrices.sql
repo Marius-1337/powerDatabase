@@ -8,6 +8,5 @@ CREATE TABLE market.DAPrices (
     CONSTRAINT market_DA_pk PRIMARY KEY (creation_ts,actual_ts,area,datasource)
 );
 
--- common.border foreign keys
 ALTER TABLE market.DAPrices ADD CONSTRAINT areacode_market_DAPrices FOREIGN KEY (area) REFERENCES common.area(eic);
 ALTER TABLE market.DAPrices ADD CONSTRAINT datasource_market_DAPrices FOREIGN KEY(datasource) REFERENCES common.datasource(id);
