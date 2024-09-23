@@ -7,7 +7,7 @@ CREATE TABLE conversion.entsoe-fueltype (
 );
 
 
-INSERT INTO common.fueltype(entsoecode, name) VALUES('A03', 'Mixed');
+INSERT INTO common.fueltype(entsoecode, name) VALUES('A03','Mixed');
 INSERT INTO common.fueltype(entsoecode, name) VALUES('A04','Generation');
 INSERT INTO common.fueltype(entsoecode, name) VALUES('A05','Load');
 INSERT INTO common.fueltype(entsoecode, name) VALUES('B01','Biomass');
