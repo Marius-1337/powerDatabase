@@ -1,14 +1,3 @@
--- Model Table
-
-START TRANSACTION;
-SET SCHEMA 'common';
-
-CREATE TABLE meteoModel (
-    model_id SERIAL PRIMARY KEY,
-    model_name VARCHAR(50) NOT NULL
-);
-
-COMMIT;
 
 INSERT INTO common.meteomodel (model_name) VALUES('ECMWF IFS 0.4°');
 INSERT INTO common.meteomodel (model_name) VALUES('ECMWF IFS 0.25°');
