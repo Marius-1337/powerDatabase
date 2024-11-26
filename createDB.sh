@@ -42,7 +42,7 @@ if [ -f ".env" ]; then
         #Switching to POWER_DB database
         export PGPASSWORD=${POWER_PASS}
         echo "Creating schemas"
-        psql -h ${POSTGRES_HOST} -U ${POWER_ADMIN} -d ${POWER_DB} -f createschemas.sql 2>&1 > /dev/null
+        psql -h ${POSTGRES_HOST} -U ${POWER_ADMIN} -d ${POWER_DB} -f structure/createschemas.sql 2>&1 > /dev/null
         echo "Creating common.country and common.continent tables"
         psql -h ${POSTGRES_HOST} -U ${POWER_ADMIN} -d ${POWER_DB} -f common/country.sql 2>&1 > /dev/null
         echo "Creating common.area table"
@@ -57,8 +57,6 @@ if [ -f ".env" ]; then
         psql -h ${POSTGRES_HOST} -U ${POWER_ADMIN} -d ${POWER_DB} -f common/powerplant.sql 2>&1 > /dev/null
         echo "Creating common.unit table"
         psql -h ${POSTGRES_HOST} -U ${POWER_ADMIN} -d ${POWER_DB} -f common/unit.sql 2>&1 > /dev/null
-        echo "Creating common.asset table"
-        psql -h ${POSTGRES_HOST} -U ${POWER_ADMIN} -d ${POWER_DB} -f common/asset.sql 2>&1 > /dev/null
         echo "Creating common.meteomodel table"
         psql -h ${POSTGRES_HOST} -U ${POWER_ADMIN} -d ${POWER_DB} -f common/meteomodel.sql 2>&1 > /dev/null
         echo "Creating common.meteomeasurement table"
@@ -83,8 +81,6 @@ if [ -f ".env" ]; then
         psql -h ${POSTGRES_HOST} -U ${POWER_ADMIN} -d ${POWER_DB} -f common/insert_meteomodels_records.sql 2>&1 > /dev/null
         echo "Inserting common.meteomeasurement records"
         psql -h ${POSTGRES_HOST} -U ${POWER_ADMIN} -d ${POWER_DB} -f common/insert_meteomeasurement_records.sql 2>&1 > /dev/null
-        echo "Creating meteorology.asset_forecast"
-        psql -h ${POSTGRES_HOST} -U ${POWER_ADMIN} -d ${POWER_DB} -f meteorology/asset_forecast.sql 2>&1 > /dev/null
     fi
     # cleanup crew to isle 5
     printf "unsetting variables\n"
