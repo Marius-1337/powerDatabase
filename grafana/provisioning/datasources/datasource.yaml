@@ -1,0 +1,16 @@
+apiVersion: 1
+
+datasources:
+  - name: ElectricDB
+    type: postgres
+    access: proxy
+    url: "postgres:5432"
+    database: electric
+    user: grafana
+    secureJsonData: 
+      password: "grafanapass"
+    isDefault: true
+    editable: true
+    jsonData:
+      timescaledb: true
+      sslmode: disable

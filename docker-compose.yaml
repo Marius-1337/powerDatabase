@@ -1,0 +1,63 @@
+name: electric
+networks:
+  PowerNetwork:
+    driver: bridge
+
+services:
+  postgres:
+    image: timescale/timescaledb:latest-pg16
+    container_name: TimescaleDB
+    env_file:
+      - .env
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    restart: always
+    networks:
+      - PowerNetwork
+    healthcheck:
+      test: ["CMD", "pg_isready -U ${POSTGRES_ADMIN}"]
+      interval: 10s
+      retries: 5
+      start_period: 30s  # Gives more time for the database to initialize initially
+      timeout: 5s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: Grafana
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: "${GF_SECURITY_ADMIN_PASSWORD}"  # Set the Grafana admin password
+    volumes:
+      - grafana_data:/var/lib/grafana  # Persistent volume for Grafana data
+      - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
+      - ./grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards
+    ports:
+      - "3000:3000"  # Expose Grafana on port 3000
+    restart: always
+    networks:
+      - PowerNetwork
+    depends_on:
+      - postgres  # Ensure Grafana starts after PostgreSQL
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/login"]  # Check if Grafana is up
+      interval: 10s
+      retries: 5
+      start_period: 30s
+      timeout: 5s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"  # Limit the log size to 10MB and retain up to 3 files
+
+volumes:
+  postgres_data:
+    name: postgres_data
+  grafana_data:
+    name: grafana_data
