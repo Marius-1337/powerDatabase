@@ -63,6 +63,10 @@ if [ -f ".env" ]; then
         psql -h ${POSTGRES_HOST} -U ${POWER_ADMIN} -d ${POWER_DB} -f common/meteomeasurement.sql 2>&1 > /dev/null
         echo "Creating area.actual_generation table"
         psql -h ${POSTGRES_HOST} -U ${POWER_ADMIN} -d ${POWER_DB} -f area/actual_generation.sql 2>&1 > /dev/null
+        echo "Creating area.actual_total_load table"
+        psql -h ${POSTGRES_HOST} -U ${POWER_ADMIN} -d ${POWER_DB} -f area/actual_total_load.sql 2>&1 > /dev/null
+        echo "Creating area.forecast_total_load_DA table"
+        psql -h ${POSTGRES_HOST} -U ${POWER_ADMIN} -d ${POWER_DB} -f area/forecast_total_load_DA.sql 2>&1 > /dev/null
         echo "Creating market.DAPrices table"
         psql -h ${POSTGRES_HOST} -U ${POWER_ADMIN} -d ${POWER_DB} -f market/DAPrices.sql 2>&1 > /dev/null
         echo "Creating market.IDPrices table"
