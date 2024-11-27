@@ -1,17 +1,16 @@
 CREATE TABLE area.actual_generation (
-	creation_ts timestamptz NOT NULL,
-	actual_ts timestamptz NOT NULL,
-	area varchar(16) NOT NULL,
-	fueltype serial4 NOT NULL, 
-	datasource serial4 NOT NULL,
-	value float4,
-	UNIQUE(creation_ts,actual_ts,area,fueltype,datasource),
-    CONSTRAINT area_actual_generation_pk PRIMARY KEY (creation_ts,actual_ts,area,fueltype,datasource)
+    created_at TIMESTAMPTZ NOT NULL,
+    datetime TIMESTAMPTZ NOT NULL,
+    area_id INT NOT NULL,
+    duration INTERVAL NOT NULL,
+	fueltype serial4 NOT NULL,
+    value FLOAT NOT NULL,
+   	datasource serial4 NOT NULL,
+    PRIMARY KEY (datetime,area_id,duration,fueltype,datasource),
+    CONSTRAINT fk_actual_gen_area FOREIGN KEY (area_id) REFERENCES common.area(id) ON DELETE CASCADE,
+    CONSTRAINT fk_actual_gen_datasource FOREIGN KEY(datasource) REFERENCES common.datasource(id) ON DELETE CASCADE,
+	CONSTRAINT fk_actual_gen_fueltype FOREIGN KEY (fueltype) REFERENCES common.fueltype(id) ON DELETE CASCADE
 );
 
-SELECT create_hypertable('area.actual_generation', by_range('actual_ts'));
-CREATE INDEX idx_actualgen_time ON area.actual_generation (creation_ts,actual_ts DESC);
-
-ALTER TABLE area.actual_generation ADD CONSTRAINT areacode_actual_generation FOREIGN KEY (area) REFERENCES common.area(eic);
-ALTER TABLE area.actual_generation ADD CONSTRAINT fueltype_actual_generation FOREIGN KEY (fueltype) REFERENCES common.fueltype(id);
-ALTER TABLE area.actual_generation ADD CONSTRAINT datasource_actual_generation FOREIGN KEY(datasource) REFERENCES common.datasource(id);
+-- Convert to hypertable
+SELECT create_hypertable('area.actual_generation', 'datetime', chunk_time_interval => INTERVAL '1 month');

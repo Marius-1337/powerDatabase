@@ -29,23 +29,19 @@ POSTGRES_HOST=localhost
 POSTGRES_PORT=5432
 POSTGRES_DB=postgres
 POSTGRES_ADMIN=postgres
-PGPASSWORD=access123
+POSTGRES_PASSWORD=access123
 
-POWER_DB=enecopowerdb
+#Database access 
+POWER_DB=electric
 POWER_ADMIN=poweradmin
 POWER_PASS=poweradmin
-```
-The first part contains the POSTGRES admin section, together with the host and port where Postgres is running. The second part contains the settings for the Power Database that will be created by this script. 
 
-## More
-In this format:
-- hostname: This is the hostname of the server where the PostgreSQL server is running.
-- port: This is the port on which the PostgreSQL server is listening.
-- database: This is the database to which you want to connect.
-- username: This is the username that you want to use to connect to the database.
-- password: This is the password of the username.
-Each line in the .pgpass file represents connection information for a specific database.
-The fields are separated by a colon (:) and can be replaced with an asterisk * as a wildcard to match any value.
-The psql reads the password file and uses the first matching. Therefore, it’s important to order the entries with more specific information first, followed by more general wildcard entries, to ensure the proper behavior.
-Example: localhost:5432:*:postgres:moreSecure
+#Postgres User for Grafana
+GRAFANA_USER=grafana
+GRAFANA_PASS=grafanapass
+#Grafana application admin password
+GF_SECURITY_ADMIN_PASSWORD=grafanapass
+```
+The first part contains the POSTGRES admin section, together with the host and port where Postgres is running. The second part contains the settings for the Power Database and the Grafana user that will be created by this script. 
+
 
