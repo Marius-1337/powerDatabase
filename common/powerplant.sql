@@ -26,8 +26,7 @@ CREATE TABLE IF NOT EXISTS common.powerplant (
 	fueltype int4 NOT NULL,
 	location varchar,
 	capacity int2,
-	ctlarea int4 NOT NULL,
-	bidarea int4 NOT NULL,
+	area int4 NOT NULL,
 	voltage int4,
 	datasource int4 NOT NULL,
 	lastupdate TIMESTAMPTZ NOT NULL,
@@ -38,9 +37,10 @@ CREATE TABLE IF NOT EXISTS common.powerplant (
 CREATE UNIQUE INDEX IF NOT EXISTS eic_uniquepowerplant_index ON powerplant(eic);
 ALTER TABLE common.powerplant DROP CONSTRAINT IF EXISTS "powerplant_fueltype_fk";
 ALTER TABLE common.powerplant ADD CONSTRAINT powerplant_fueltype_fk FOREIGN KEY (fueltype) REFERENCES common.fueltype(id);
-ALTER TABLE common.powerplant DROP CONSTRAINT IF EXISTS "powerplant_ctlarea_fk";
-ALTER TABLE common.powerplant ADD CONSTRAINT powerplant_ctlarea_fk FOREIGN KEY (ctlarea) REFERENCES common.area(id);
-ALTER TABLE common.powerplant DROP CONSTRAINT IF EXISTS "powerplant_bidarea_fk";
-ALTER TABLE common.powerplant ADD CONSTRAINT powerplant_bidarea_fk FOREIGN KEY (bidarea) REFERENCES common.area(id);
+ALTER TABLE common.powerplant DROP CONSTRAINT IF EXISTS "powerplant_area_fk";
+ALTER TABLE common.powerplant ADD CONSTRAINT powerplant_area_fk FOREIGN KEY (area) REFERENCES common.area(id);
+ALTER TABLE common.powerplant DROP CONSTRAINT IF EXISTS "powerplant_datasource_fk";
+ALTER TABLE common.powerplant ADD CONSTRAINT powerplant_datasource_fk FOREIGN KEY(datasource) REFERENCES common.datasource(id);
+
 
 COMMIT;

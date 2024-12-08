@@ -71,6 +71,8 @@ if [ -f ".env" ]; then
         psql -h ${POSTGRES_HOST} -U ${POWER_ADMIN} -d ${POWER_DB} -f market/DAPrices.sql 2>&1 > /dev/null
         echo "Creating market.IDPrices table"
         psql -h ${POSTGRES_HOST} -U ${POWER_ADMIN} -d ${POWER_DB} -f market/IDPrices.sql 2>&1 > /dev/null
+        echo "Creating mapping.entsoefueltype table"
+        psql -h ${POSTGRES_HOST} -U ${POWER_ADMIN} -d ${POWER_DB} -f mapping/fuelconversionentsoe.sql 2>&1 > /dev/null
         echo "Inserting common.datasource records"
         psql -h ${POSTGRES_HOST} -U ${POWER_ADMIN} -d ${POWER_DB} -f common/insert_datasource_records.sql 2>&1 > /dev/null
         echo "Inserting common.area records"
@@ -85,6 +87,9 @@ if [ -f ".env" ]; then
         psql -h ${POSTGRES_HOST} -U ${POWER_ADMIN} -d ${POWER_DB} -f common/insert_meteomodels_records.sql 2>&1 > /dev/null
         echo "Inserting common.meteomeasurement records"
         psql -h ${POSTGRES_HOST} -U ${POWER_ADMIN} -d ${POWER_DB} -f common/insert_meteomeasurement_records.sql 2>&1 > /dev/null
+        echo "Inserting mapping.entsoe_fueltype records"
+        psql -h ${POSTGRES_HOST} -U ${POWER_ADMIN} -d ${POWER_DB} -f mapping/insert_entsoe_fuelconversion.sql 2>&1 > /dev/null
+
     fi
     # cleanup crew to isle 5
     printf "unsetting variables\n"

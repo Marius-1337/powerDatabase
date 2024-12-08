@@ -1,4 +1,4 @@
-
+START TRANSACTION;
 INSERT INTO common.meteomodel (model_name) VALUES('ECMWF IFS 0.4°');
 INSERT INTO common.meteomodel (model_name) VALUES('ECMWF IFS 0.25°');
 INSERT INTO common.meteomodel (model_name) VALUES('ECMWF AIFS 0.25°');
@@ -38,3 +38,4 @@ INSERT INTO common.meteomodel (model_name) VALUES('DMI Harmonie Arome Europe');
 INSERT INTO common.meteomodel (model_name) VALUES('UK Met Office Seamless');
 INSERT INTO common.meteomodel (model_name) VALUES('UK Met Office Global 10km');
 INSERT INTO common.meteomodel (model_name) VALUES('UK Met Office UK 2km');
+COMMIT;

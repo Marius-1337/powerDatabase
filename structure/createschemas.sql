@@ -19,4 +19,6 @@ START TRANSACTION;
     CREATE SCHEMA IF NOT EXISTS market; ALTER SCHEMA market OWNER to poweradmin;
     CREATE SCHEMA IF NOT EXISTS meteorology; ALTER SCHEMA meteorology OWNER to poweradmin;
     CREATE SCHEMA IF NOT EXISTS unit; ALTER SCHEMA unit OWNER to poweradmin;
+    CREATE SCHEMA IF NOT EXISTS mapping; ALTER SCHEMA mapping OWNER to poweradmin;
+    
 COMMIT;

@@ -26,8 +26,9 @@ CREATE TABLE IF NOT EXISTS common.unit (
   status varchar NULL,
   fueltype int4 NOT NULL,
   location varchar,
-  capacity int2,
-  Datasource int4 NOT NULL, 
+  capacity float,
+  voltage float,
+  datasource int4 NOT NULL, 
   lastupdate TIMESTAMPTZ NOT NULL,
   CONSTRAINT unit_pk PRIMARY KEY (id)
 );
@@ -39,5 +40,8 @@ ALTER TABLE common.unit ADD CONSTRAINT unit_plant_fk FOREIGN KEY (powerplant) RE
 
 ALTER TABLE common.unit DROP CONSTRAINT IF EXISTS unit_fueltype_fk;
 ALTER TABLE common.unit ADD CONSTRAINT unit_fueltype_fk FOREIGN KEY (fueltype) REFERENCES common.fueltype(id);
+
+ALTER TABLE common.unit DROP CONSTRAINT IF EXISTS unit_datasource_fk;
+ALTER TABLE common.unit ADD CONSTRAINT unit_datasource_fk FOREIGN KEY(datasource) REFERENCES common.datasource(id);
 
 COMMIT;
