@@ -4,8 +4,8 @@ CREATE TABLE market.IDPrices (
     area_id INT NOT NULL,
 	price float NOT NULL, 
 	datasource serial4 NOT NULL,
-	UNIQUE(creation_ts,actual_ts,area,datasource),
-    CONSTRAINT market_ID_pk PRIMARY KEY (creation_ts,actual_ts,area,datasource)
+	UNIQUE(creation_ts,actual_ts,area_id,datasource),
+    CONSTRAINT market_ID_pk PRIMARY KEY (creation_ts,actual_ts,area_id,datasource)
 );
 
 -- common.border foreign keys

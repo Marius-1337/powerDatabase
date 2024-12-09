@@ -18,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 5,
+  "id": 2,
   "links": [],
   "panels": [
     {
@@ -26,49 +26,32 @@
         "type": "grafana-postgresql-datasource",
         "uid": "P429E6AA2797CF0A2"
       },
-      "description": "Generation per fueltype per selected area",
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "palette-classic"
+            "mode": "continuous-GrYlRd"
           },
           "custom": {
-            "axisBorderShow": false,
+            "axisBorderShow": true,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
+            "fillOpacity": 80,
+            "gradientMode": "hue",
             "hideFrom": {
               "legend": false,
               "tooltip": false,
               "viz": false
             },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineStyle": {
-              "fill": "solid"
-            },
             "lineWidth": 1,
-            "pointSize": 5,
             "scaleDistribution": {
               "type": "linear"
-            },
-            "showPoints": "never",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "normal"
             },
             "thresholdsStyle": {
               "mode": "off"
             }
           },
-          "fieldMinMax": false,
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
@@ -88,38 +71,42 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 10,
+        "h": 12,
         "w": 16,
         "x": 0,
         "y": 0
       },
-      "id": 1,
+      "id": 5,
       "options": {
+        "barRadius": 0,
+        "barWidth": 0.97,
+        "fullHighlight": false,
+        "groupWidth": 0.7,
         "legend": {
-          "calcs": [],
-          "displayMode": "table",
-          "placement": "right",
+          "calcs": [
+            "sum"
+          ],
+          "displayMode": "list",
+          "placement": "bottom",
           "showLegend": true
         },
-        "timezone": [
-          "browser"
-        ],
+        "orientation": "horizontal",
+        "showValue": "auto",
+        "stacking": "normal",
         "tooltip": {
-          "mode": "multi",
+          "mode": "single",
           "sort": "none"
-        }
+        },
+        "xTickLabelRotation": 0,
+        "xTickLabelSpacing": 0
       },
       "pluginVersion": "11.3.1",
       "targets": [
         {
-          "datasource": {
-            "type": "grafana-postgresql-datasource",
-            "uid": "P429E6AA2797CF0A2"
-          },
           "editorMode": "code",
-          "format": "time_series",
+          "format": "table",
           "rawQuery": true,
-          "rawSql": "SELECT\n  datetime AS \"time\",          -- Time dimension\n  ft.name AS \"fueltype\",        -- Fueltype dimension (for series/legend)\n  SUM(ag.value) AS \"value\"      -- Aggregated generation value\nFROM\n  area.actual_generation ag\nJOIN\n  common.fueltype ft ON ag.fueltype = ft.id\nWHERE\n  datetime BETWEEN $__timeFrom() AND $__timeTo()  -- Grafana time range macros\n  AND ag.area_id = '${areacode}'                          -- Filter by area variable\nGROUP BY\n  datetime, ft.name\nORDER BY\n  datetime ASC;",
+          "rawSql": "SELECT \n    f.name AS fueltype,\n    SUM(p.capacity) AS total_capacity\nFROM \n    common.powerplant p\nJOIN \n    common.fueltype f ON p.fueltype = f.id\nJOIN \n    common.area a ON p.area = a.id\nWHERE \n    p.area = '${areacode}'\nGROUP BY \n    f.name\nORDER BY \n    total_capacity DESC;",
           "refId": "A",
           "sql": {
             "columns": [
@@ -140,8 +127,8 @@
           }
         }
       ],
-      "title": "Generation / Fueltype",
-      "type": "timeseries"
+      "title": "Installed capacity per fuel type",
+      "type": "barchart"
     },
     {
       "datasource": {
@@ -190,7 +177,7 @@
         ]
       },
       "gridPos": {
-        "h": 10,
+        "h": 12,
         "w": 8,
         "x": 16,
         "y": 0
@@ -318,10 +305,132 @@
         "overrides": []
       },
       "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 12
+      },
+      "id": 1,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true
+        },
+        "timezone": [
+          "browser"
+        ],
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.3.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "P429E6AA2797CF0A2"
+          },
+          "editorMode": "code",
+          "format": "time_series",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  datetime AS \"time\",          -- Time dimension\n  ft.name AS \"fueltype\",        -- Fueltype dimension (for series/legend)\n  SUM(ag.value) AS \"value\"      -- Aggregated generation value\nFROM\n  area.actual_generation ag\nJOIN\n  common.fueltype ft ON ag.fueltype = ft.id\nWHERE\n  datetime BETWEEN $__timeFrom() AND $__timeTo()  -- Grafana time range macros\n  AND ag.area_id = '${areacode}'                          -- Filter by area variable\nGROUP BY\n  datetime, ft.name\nORDER BY\n  datetime ASC;",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "Generation / Fueltype",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "P429E6AA2797CF0A2"
+      },
+      "description": "Generation per fueltype per selected area",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "fieldMinMax": false,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "megwatt"
+        },
+        "overrides": []
+      },
+      "gridPos": {
         "h": 8,
         "w": 24,
         "x": 0,
-        "y": 10
+        "y": 22
       },
       "id": 2,
       "options": {
@@ -404,6 +513,6 @@
   "timezone": "browser",
   "title": "nextone Copy",
   "uid": "ce5b7t6pxxuyob",
-  "version": 1,
+  "version": 2,
   "weekStart": ""
 }
