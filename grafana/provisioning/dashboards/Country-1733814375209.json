@@ -18,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 2,
+  "id": 3,
   "links": [],
   "panels": [
     {
@@ -29,28 +29,15 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "continuous-GrYlRd"
+            "mode": "thresholds"
           },
           "custom": {
-            "axisBorderShow": true,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "fillOpacity": 80,
-            "gradientMode": "hue",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
+            "align": "left",
+            "cellOptions": {
+              "type": "auto"
             },
-            "lineWidth": 1,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
+            "filterable": false,
+            "inspect": false
           },
           "mappings": [],
           "thresholds": {
@@ -65,40 +52,29 @@
                 "value": 80
               }
             ]
-          },
-          "unit": "megwatt"
+          }
         },
         "overrides": []
       },
       "gridPos": {
-        "h": 12,
+        "h": 3,
         "w": 16,
         "x": 0,
         "y": 0
       },
-      "id": 5,
+      "id": 6,
       "options": {
-        "barRadius": 0,
-        "barWidth": 0.97,
-        "fullHighlight": false,
-        "groupWidth": 0.7,
-        "legend": {
-          "calcs": [
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "enablePagination": false,
+          "fields": "",
+          "reducer": [
             "sum"
           ],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
+          "show": false
         },
-        "orientation": "horizontal",
-        "showValue": "auto",
-        "stacking": "normal",
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        },
-        "xTickLabelRotation": 0,
-        "xTickLabelSpacing": 0
+        "showHeader": false
       },
       "pluginVersion": "11.3.1",
       "targets": [
@@ -106,7 +82,7 @@
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "SELECT \n    f.name AS fueltype,\n    SUM(p.capacity) AS total_capacity\nFROM \n    common.powerplant p\nJOIN \n    common.fueltype f ON p.fueltype = f.id\nJOIN \n    common.area a ON p.area = a.id\nWHERE \n    p.area = '${areacode}'\nGROUP BY \n    f.name\nORDER BY \n    total_capacity DESC;",
+          "rawSql": "select ca.eic as \"EIC Code\", ca.name as \"Area code\", cc.\"name\" as Country \nfrom common.area ca\njoin common.country cc on ca.countrycode = cc.code\nwhere ca.id = '${areacode}'",
           "refId": "A",
           "sql": {
             "columns": [
@@ -127,8 +103,8 @@
           }
         }
       ],
-      "title": "Installed capacity per fuel type",
-      "type": "barchart"
+      "title": "Area Details",
+      "type": "table"
     },
     {
       "datasource": {
@@ -177,7 +153,7 @@
         ]
       },
       "gridPos": {
-        "h": 12,
+        "h": 15,
         "w": 8,
         "x": 16,
         "y": 0
@@ -237,6 +213,115 @@
       ],
       "title": "Generation / Fueltype",
       "type": "piechart"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "P429E6AA2797CF0A2"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-GrYlRd"
+          },
+          "custom": {
+            "axisBorderShow": true,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "fillOpacity": 80,
+            "gradientMode": "hue",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineWidth": 1,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "megwatt"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 16,
+        "x": 0,
+        "y": 3
+      },
+      "id": 5,
+      "options": {
+        "barRadius": 0,
+        "barWidth": 0.97,
+        "fullHighlight": false,
+        "groupWidth": 0.7,
+        "legend": {
+          "calcs": [
+            "sum"
+          ],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "orientation": "horizontal",
+        "showValue": "auto",
+        "stacking": "normal",
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        },
+        "xTickLabelRotation": 0,
+        "xTickLabelSpacing": 0
+      },
+      "pluginVersion": "11.3.1",
+      "targets": [
+        {
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT \n    f.name AS fueltype,\n    SUM(p.capacity) AS total_capacity\nFROM \n    common.powerplant p\nJOIN \n    common.fueltype f ON p.fueltype = f.id\nJOIN \n    common.area a ON p.area = a.id\nWHERE \n    p.area = '${areacode}'\nGROUP BY \n    f.name\nORDER BY \n    total_capacity ASC;",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "Installed capacity per fuel type",
+      "type": "barchart"
     },
     {
       "datasource": {
@@ -308,7 +393,7 @@
         "h": 10,
         "w": 24,
         "x": 0,
-        "y": 12
+        "y": 15
       },
       "id": 1,
       "options": {
@@ -430,7 +515,7 @@
         "h": 8,
         "w": 24,
         "x": 0,
-        "y": 22
+        "y": 25
       },
       "id": 2,
       "options": {
@@ -490,8 +575,8 @@
     "list": [
       {
         "current": {
-          "text": "10YFR-RTE------C - FR",
-          "value": "81"
+          "text": "10YNL----------L - NL",
+          "value": "92"
         },
         "definition": "SELECT\n  id AS __value,\n  eic || ' - ' || name AS __text\nFROM\n  common.area\nWHERE bzn = true or cta = true\nORDER BY\n  name;",
         "includeAll": false,
@@ -506,13 +591,13 @@
     ]
   },
   "time": {
-    "from": "now-7d",
-    "to": "now"
+    "from": "2024-09-25T08:54:42.540Z",
+    "to": "2025-01-23T08:54:42.544Z"
   },
   "timepicker": {},
   "timezone": "browser",
-  "title": "nextone Copy",
-  "uid": "ce5b7t6pxxuyob",
-  "version": 2,
+  "title": "Country",
+  "uid": "be6ds6g56qzggd",
+  "version": 9,
   "weekStart": ""
 }
