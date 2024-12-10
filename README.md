@@ -1,10 +1,11 @@
 # powerDatabase
 
-## 
-
 ## What does it deliver:
 The bash script and sql files together can be used to create a power database from scratch. 
 It will create a database that is defined in the .env file and creates all schemas tables, relations and indices in the database itself. After the script completes, a docker container is running with a timescaledb and grafana. Some tables are filled with initial data, all of them located in the common schema. 
+
+## Why?
+There are a lot of datasets that are published that are related to the European Energy landscape. Each datavendor and each dataset use their own definitions. The one metric that ties the landscape together is time. This database aims to facilitate any and all timeseries dataset and makes them easier to interpret. The use of timescale allows for larger datasets to be collected and used for training or backtesting any logic. 
 
 ## Todo: 
 - Define and add tables for meteorological measurements
