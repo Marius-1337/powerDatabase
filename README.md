@@ -1,29 +1,26 @@
 # powerDatabase
-## Wtf:
+
+## 
+
+## What does it deliver:
 The bash script and sql files together can be used to create a power database from scratch. 
-It will create a database that is defined in the .env file and creates all schemas tables, relations and indices in the database itself. 
-Some tables are filled with initial data, all of them located in the common schema. 
+It will create a database that is defined in the .env file and creates all schemas tables, relations and indices in the database itself. After the script completes, a docker container is running with a timescaledb and grafana. Some tables are filled with initial data, all of them located in the common schema. 
 
 ## Todo: 
-- check rights and ownership
-- correctly define foreign keys and cascading properties
-- check if create statement for timescaledb tables needs anything additional
-- check if Italian regions (regions in general) need validity dates (when created, when cease to exist)
+- Define and add tables for meteorological measurements
+- Define and add tables for unit measurements
+- Define and add tables for border measurements
+- Add example scripts that retrieve and store data in the timeseries tables
+- Apply structured rights to the database
+- Include web dbeaver 
 
 ## Requirements
-Ensure pqsl is installed. A quick guide on how to install it locally on your mac: 
-```
-brew update
-brew install libpq
-brew link --force libpq
-```
-then add it to your path, something such as (might vary on your system)
-```
-echo 'export PATH="/opt/homebrew/opt/libpq/bin:$PATH"' >> ~/.zshrc
-```
-The psql tool should be working from command line after all this is one. the bash script requires psql to be available on the machine where it is running. 
+Ensure docker desktop is installed. Follow the guide here: https://docs.docker.com/desktop/
+Clone this repo and make sure a .env is placed in the root folder of the project. 
 
-The bash script sets all environment variables for psql when it is started. For this it relies on a .env file that contains the following entries: 
+The project can be deployed once docker desktop is running and when the .env is created. 
+
+The .env file should contain the following entries: (copy paste the example and things should already work). 
 ```
 POSTGRES_HOST=localhost
 POSTGRES_PORT=5432
@@ -44,4 +41,4 @@ GF_SECURITY_ADMIN_PASSWORD=grafanapass
 ```
 The first part contains the POSTGRES admin section, together with the host and port where Postgres is running. The second part contains the settings for the Power Database and the Grafana user that will be created by this script. 
 
-
+Execute the bash script 'hbfs.sh', this should deploy all in one go. 
