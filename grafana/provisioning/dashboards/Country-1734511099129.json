@@ -18,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 3,
+  "id": 2,
   "links": [],
   "panels": [
     {
@@ -58,7 +58,7 @@
       },
       "gridPos": {
         "h": 3,
-        "w": 16,
+        "w": 17,
         "x": 0,
         "y": 0
       },
@@ -114,114 +114,6 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            }
-          },
-          "mappings": []
-        },
-        "overrides": [
-          {
-            "__systemRef": "hideSeriesFrom",
-            "matcher": {
-              "id": "byNames",
-              "options": {
-                "mode": "exclude",
-                "names": [
-                  "value"
-                ],
-                "prefix": "All except:",
-                "readOnly": true
-              }
-            },
-            "properties": [
-              {
-                "id": "custom.hideFrom",
-                "value": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": true
-                }
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 15,
-        "w": 8,
-        "x": 16,
-        "y": 0
-      },
-      "id": 3,
-      "options": {
-        "displayLabels": [
-          "percent"
-        ],
-        "legend": {
-          "displayMode": "table",
-          "placement": "right",
-          "showLegend": true,
-          "values": [
-            "percent"
-          ]
-        },
-        "pieType": "pie",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": true
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "11.3.1",
-      "targets": [
-        {
-          "editorMode": "code",
-          "format": "table",
-          "rawQuery": true,
-          "rawSql": "SELECT\n  ft.name AS \"fueltype\",         -- Fueltype dimension (for slices)\n  SUM(ag.value) AS \"value\"       -- Total generation value per fuel type\nFROM\n  area.actual_generation ag\nJOIN\n  common.fueltype ft ON ag.fueltype = ft.id\nWHERE\n  datetime BETWEEN $__timeFrom() AND $__timeTo()  -- Filter by Grafana time range macros\n  AND ag.area_id = '${areacode}'                  -- Filter by selected area\nGROUP BY\n  ft.name                                         -- Group by fuel type\nORDER BY\n  SUM(ag.value) DESC;                             -- Optional: Order by total value for better visualization",
-          "refId": "A",
-          "sql": {
-            "columns": [
-              {
-                "parameters": [],
-                "type": "function"
-              }
-            ],
-            "groupBy": [
-              {
-                "property": {
-                  "type": "string"
-                },
-                "type": "groupBy"
-              }
-            ],
-            "limit": 50
-          }
-        }
-      ],
-      "title": "Generation / Fueltype",
-      "type": "piechart"
-    },
-    {
-      "datasource": {
-        "type": "grafana-postgresql-datasource",
-        "uid": "P429E6AA2797CF0A2"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
             "mode": "continuous-GrYlRd"
           },
           "custom": {
@@ -264,8 +156,8 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 12,
-        "w": 16,
+        "h": 10,
+        "w": 14,
         "x": 0,
         "y": 3
       },
@@ -322,6 +214,114 @@
       ],
       "title": "Installed capacity per fuel type",
       "type": "barchart"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "P429E6AA2797CF0A2"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": []
+        },
+        "overrides": [
+          {
+            "__systemRef": "hideSeriesFrom",
+            "matcher": {
+              "id": "byNames",
+              "options": {
+                "mode": "exclude",
+                "names": [
+                  "value"
+                ],
+                "prefix": "All except:",
+                "readOnly": true
+              }
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": true
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 10,
+        "x": 14,
+        "y": 3
+      },
+      "id": 3,
+      "options": {
+        "displayLabels": [
+          "percent"
+        ],
+        "legend": {
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true,
+          "values": [
+            "percent"
+          ]
+        },
+        "pieType": "pie",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.3.1",
+      "targets": [
+        {
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  ft.name AS \"fueltype\",         -- Fueltype dimension (for slices)\n  SUM(ag.value) AS \"value\"       -- Total generation value per fuel type\nFROM\n  area.actual_generation ag\nJOIN\n  common.fueltype ft ON ag.fueltype = ft.id\nWHERE\n  datetime BETWEEN $__timeFrom() AND $__timeTo()  -- Filter by Grafana time range macros\n  AND ag.area_id = '${areacode}'                  -- Filter by selected area\nGROUP BY\n  ft.name                                         -- Group by fuel type\nORDER BY\n  SUM(ag.value) DESC;                             -- Optional: Order by total value for better visualization",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "Generation / Fueltype",
+      "type": "piechart"
     },
     {
       "datasource": {
@@ -390,10 +390,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 10,
-        "w": 24,
+        "h": 9,
+        "w": 12,
         "x": 0,
-        "y": 15
+        "y": 13
       },
       "id": 1,
       "options": {
@@ -512,10 +512,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 8,
-        "w": 24,
-        "x": 0,
-        "y": 25
+        "h": 9,
+        "w": 12,
+        "x": 12,
+        "y": 13
       },
       "id": 2,
       "options": {
@@ -598,6 +598,6 @@
   "timezone": "browser",
   "title": "Country",
   "uid": "be6ds6g56qzggd",
-  "version": 9,
+  "version": 1,
   "weekStart": ""
 }
