@@ -5,7 +5,7 @@ networks:
 
 services:
   postgres:
-    image: timescale/timescaledb:latest-pg16
+    image: timescale/timescaledb-ha:pg17
     container_name: TimescaleDB
     env_file:
       - .env
@@ -32,7 +32,8 @@ services:
     image: grafana/grafana:latest
     container_name: Grafana
     environment:
-      GF_SECURITY_ADMIN_PASSWORD: "${GF_SECURITY_ADMIN_PASSWORD}"  # Set the Grafana admin password
+      - GF_SECURITY_ADMIN_PASSWORD=${GF_SECURITY_ADMIN_PASSWORD}  # Set the Grafana admin password
+      - GF_INSTALL_PLUGINS=grafana-clock-panel,speakyourcode-button-panel
     volumes:
       - grafana_data:/var/lib/grafana  # Persistent volume for Grafana data
       - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources

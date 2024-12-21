@@ -27,6 +27,115 @@
         "uid": "P429E6AA2797CF0A2"
       },
       "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 6,
+        "x": 0,
+        "y": 0
+      },
+      "id": 7,
+      "options": {
+        "buttons": [
+          {
+            "datasource": "",
+            "query": "",
+            "text": "",
+            "variant": "destructive"
+          }
+        ],
+        "orientation": "horizontal"
+      },
+      "pluginVersion": "0.3.2",
+      "targets": [
+        {
+          "refId": "A"
+        }
+      ],
+      "title": "",
+      "type": "speakyourcode-button-panel"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "P429E6AA2797CF0A2"
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 5,
+        "x": 6,
+        "y": 0
+      },
+      "id": 8,
+      "options": {
+        "bgColor": "",
+        "clockType": "24 hour",
+        "countdownSettings": {
+          "endCountdownTime": "2024-12-21T21:47:25+01:00",
+          "endText": "00:00:00",
+          "invalidValueText": "invalid value",
+          "noValueText": "no value found",
+          "queryCalculation": "last",
+          "source": "input"
+        },
+        "countupSettings": {
+          "beginCountupTime": "2024-12-21T21:47:25+01:00",
+          "beginText": "00:00:00",
+          "invalidValueText": "invalid value",
+          "noValueText": "no value found",
+          "queryCalculation": "last",
+          "source": "input"
+        },
+        "dateSettings": {
+          "dateFormat": "YYYY-MM-DD",
+          "fontSize": "20px",
+          "fontWeight": "normal",
+          "locale": "",
+          "showDate": true
+        },
+        "descriptionSettings": {
+          "descriptionText": "",
+          "fontSize": "12px",
+          "fontWeight": "normal",
+          "noValueText": "no description found",
+          "source": "none"
+        },
+        "fontMono": false,
+        "mode": "time",
+        "refresh": "sec",
+        "timeSettings": {
+          "fontSize": "20px",
+          "fontWeight": "normal"
+        },
+        "timezone": "",
+        "timezoneSettings": {
+          "fontSize": "12px",
+          "fontWeight": "normal",
+          "showTimezone": true,
+          "zoneFormat": "offsetAbbv"
+        }
+      },
+      "pluginVersion": "2.1.8",
+      "targets": [
+        {
+          "refId": "A"
+        }
+      ],
+      "title": "",
+      "type": "grafana-clock-panel"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "P429E6AA2797CF0A2"
+      },
+      "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "thresholds"
@@ -57,9 +166,9 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 3,
-        "w": 17,
-        "x": 0,
+        "h": 2,
+        "w": 13,
+        "x": 11,
         "y": 0
       },
       "id": 6,
@@ -76,7 +185,7 @@
         },
         "showHeader": false
       },
-      "pluginVersion": "11.3.1",
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "editorMode": "code",
@@ -103,7 +212,7 @@
           }
         }
       ],
-      "title": "Area Details",
+      "title": "",
       "type": "table"
     },
     {
@@ -159,7 +268,7 @@
         "h": 10,
         "w": 14,
         "x": 0,
-        "y": 3
+        "y": 2
       },
       "id": 5,
       "options": {
@@ -185,7 +294,7 @@
         "xTickLabelRotation": 0,
         "xTickLabelSpacing": 0
       },
-      "pluginVersion": "11.3.1",
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "editorMode": "code",
@@ -265,7 +374,7 @@
         "h": 10,
         "w": 10,
         "x": 14,
-        "y": 3
+        "y": 2
       },
       "id": 3,
       "options": {
@@ -293,7 +402,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.3.1",
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "editorMode": "code",
@@ -393,7 +502,7 @@
         "h": 9,
         "w": 12,
         "x": 0,
-        "y": 13
+        "y": 12
       },
       "id": 1,
       "options": {
@@ -411,7 +520,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.3.1",
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
@@ -515,7 +624,7 @@
         "h": 9,
         "w": 12,
         "x": 12,
-        "y": 13
+        "y": 12
       },
       "id": 2,
       "options": {
@@ -533,7 +642,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.3.1",
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {

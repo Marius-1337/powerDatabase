@@ -31,13 +31,17 @@ if [ -f ".env" ]; then
     else
         # database does not exist, creating it
         printf "Creating database: %s: " "${POWER_DB}"
-        psql -h ${POSTGRES_HOST} -U ${POSTGRES_ADMIN} -d ${POSTGRES_DB} -c "CREATE DATABASE ${POWER_DB} WITH ENCODING = 'UTF8' LOCALE_PROVIDER = libc LOCALE = 'en_US.utf8';"
+        psql -h ${POSTGRES_HOST} -U ${POSTGRES_ADMIN} -d ${POSTGRES_DB} -c "CREATE DATABASE ${POWER_DB} WITH ENCODING = 'UTF8';"
         printf "Setting admin for: %s to %s: " "${POWER_DB}" "${POWER_ADMIN}" 
         psql -h ${POSTGRES_HOST} -U ${POSTGRES_ADMIN} -d ${POSTGRES_DB} -c "ALTER DATABASE ${POWER_DB} OWNER TO ${POWER_ADMIN};"
         printf "Granting all privileges to %s on %s: " "${POWER_ADMIN}" "${POWER_DB}"
         psql -h ${POSTGRES_HOST} -U ${POSTGRES_ADMIN} -d ${POSTGRES_DB} -c "GRANT ALL PRIVILEGES ON DATABASE ${POWER_DB} TO ${POWER_ADMIN};" 
         printf "Granting read privileges to %s on %s: " "${GRAFANA_USER}" "${POWER_DB}"
         psql -h ${POSTGRES_HOST} -U ${POSTGRES_ADMIN} -d ${POSTGRES_DB} -c "grant pg_read_all_data to ${GRAFANA_USER};"
+        printf "Installing POSTGIS extension: "
+        psql -h ${POSTGRES_HOST} -U ${POSTGRES_ADMIN} -d ${POSTGRES_DB} -c "CREATE EXTENSION postgis;";
+        printf "Installing POSTGIS_topology extension: "
+        psql -h ${POSTGRES_HOST} -U ${POSTGRES_ADMIN} -d ${POSTGRES_DB} -c "CREATE EXTENSION postgis_topology;";
 
         #Switching to POWER_DB database
         export PGPASSWORD=${POWER_PASS}
@@ -89,6 +93,7 @@ if [ -f ".env" ]; then
         psql -h ${POSTGRES_HOST} -U ${POWER_ADMIN} -d ${POWER_DB} -f common/insert_meteomeasurement_records.sql 2>&1 > /dev/null
         echo "Inserting mapping.entsoe_fueltype records"
         psql -h ${POSTGRES_HOST} -U ${POWER_ADMIN} -d ${POWER_DB} -f mapping/insert_entsoe_fuelconversion.sql 2>&1 > /dev/null
+        
 
     fi
     # cleanup crew to isle 5
