@@ -19,9 +19,9 @@ SET CONSTRAINTS ALL DEFERRED;
 CREATE TABLE IF NOT EXISTS common.unit (
   id serial4 NOT NULL,
   eic varchar(16) NOT NULL,
-  powerplant varchar(16) NOT NULL,
+  powerplant_id serial4 NOT NULL,
   name varchar NOT NULL,
-  validfrom date NOT NULL,
+  validfrom date NULL,
   validthrough date NULL,
   status varchar NULL,
   fueltype int4 NOT NULL,
@@ -35,8 +35,8 @@ CREATE TABLE IF NOT EXISTS common.unit (
 
 CREATE UNIQUE INDEX IF NOT EXISTS eic_uniqueunit_index ON unit(eic);
 
-ALTER TABLE common.unit DROP CONSTRAINT IF EXISTS unit_plant_fk;
-ALTER TABLE common.unit ADD CONSTRAINT unit_plant_fk FOREIGN KEY (powerplant) REFERENCES common.powerplant(eic);
+ALTER TABLE common.unit DROP CONSTRAINT IF EXISTS powerplant_id;
+ALTER TABLE common.unit ADD CONSTRAINT unit_powerplant_id FOREIGN KEY (powerplant_id) REFERENCES common.powerplant(id);
 
 ALTER TABLE common.unit DROP CONSTRAINT IF EXISTS unit_fueltype_fk;
 ALTER TABLE common.unit ADD CONSTRAINT unit_fueltype_fk FOREIGN KEY (fueltype) REFERENCES common.fueltype(id);
