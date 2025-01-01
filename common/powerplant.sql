@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS common.powerplant (
 	validthrough date NULL,
 	status varchar NULL,
 	fueltype int4 NOT NULL,
-	location_name varchar(30),
+	location_name varchar(100),
 	location point NULL,
 	nominalpower int2,
 	highvoltagelimit int2,

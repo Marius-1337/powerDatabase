@@ -18,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 2,
+  "id": 3,
   "links": [],
   "panels": [
     {
@@ -300,7 +300,7 @@
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "SELECT \n    f.name AS fueltype,\n    SUM(p.capacity) AS total_capacity\nFROM \n    common.powerplant p\nJOIN \n    common.fueltype f ON p.fueltype = f.id\nJOIN \n    common.area a ON p.area = a.id\nWHERE \n    p.area = '${areacode}'\nGROUP BY \n    f.name\nORDER BY \n    total_capacity ASC;",
+          "rawSql": "SELECT \n    f.name AS fueltype,\n    SUM(p.nominalpower) AS total_capacity\nFROM \n    common.powerplant p\nJOIN \n    common.fueltype f ON p.fueltype = f.id\nJOIN \n    common.area a ON p.area = a.id\nWHERE \n    p.area = '${areacode}'\nGROUP BY \n    f.name\nORDER BY \n    total_capacity ASC;",
           "refId": "A",
           "sql": {
             "columns": [
@@ -675,6 +675,247 @@
       ],
       "title": "Load",
       "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "P429E6AA2797CF0A2"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "left",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 24,
+        "x": 0,
+        "y": 21
+      },
+      "id": 9,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "enablePagination": true,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": true
+        },
+        "showHeader": true
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT \n    p.name as plantname, p.eic, \n    f.name AS fueltype,\n    location_name,\n    highvoltagelimit,\n    nominalpower AS \"nomimal power\"\nFROM \n    common.powerplant p\nJOIN \n    common.fueltype f ON p.fueltype = f.id\nJOIN \n    common.area a ON p.area = a.id\nWHERE \n    p.area = '${areacode}'\nORDER BY \n    p.fueltype, p.name",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "Powerplant list",
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "P429E6AA2797CF0A2"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 17,
+        "w": 11,
+        "x": 0,
+        "y": 32
+      },
+      "id": 10,
+      "options": {
+        "basemap": {
+          "config": {
+            "server": "streets",
+            "showLabels": true,
+            "theme": "auto"
+          },
+          "name": "Layer 0",
+          "type": "default"
+        },
+        "controls": {
+          "mouseWheelZoom": true,
+          "showAttribution": true,
+          "showDebug": false,
+          "showMeasure": false,
+          "showScale": true,
+          "showZoom": true
+        },
+        "layers": [
+          {
+            "config": {
+              "showLegend": true,
+              "style": {
+                "color": {
+                  "fixed": "dark-green"
+                },
+                "opacity": 0.4,
+                "rotation": {
+                  "fixed": 0,
+                  "max": 360,
+                  "min": -360,
+                  "mode": "mod"
+                },
+                "size": {
+                  "field": "fueltype",
+                  "fixed": 5,
+                  "max": 15,
+                  "min": 2
+                },
+                "symbol": {
+                  "fixed": "img/icons/marker/circle.svg",
+                  "mode": "fixed"
+                },
+                "symbolAlign": {
+                  "horizontal": "center",
+                  "vertical": "center"
+                },
+                "text": {
+                  "field": "Name",
+                  "fixed": "",
+                  "mode": "field"
+                },
+                "textConfig": {
+                  "fontSize": 12,
+                  "offsetX": 35,
+                  "offsetY": 0,
+                  "textAlign": "center",
+                  "textBaseline": "middle"
+                }
+              }
+            },
+            "filterData": {
+              "id": "byRefId",
+              "options": "A"
+            },
+            "location": {
+              "latitude": "longitude",
+              "longitude": "latitude",
+              "mode": "auto"
+            },
+            "name": "Layer 1",
+            "tooltip": true,
+            "type": "markers"
+          }
+        ],
+        "tooltip": {
+          "mode": "details"
+        },
+        "view": {
+          "allLayers": true,
+          "id": "coords",
+          "lat": 52.389239,
+          "lon": 5.339493,
+          "zoom": 7
+        }
+      },
+      "pluginVersion": "11.4.0",
+      "targets": [
+        {
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT \n    f.name AS fueltype,\n    p.name AS \"Name\", \n    eic AS \"EIC Code\", \n    location[0] AS lat,\n    location[1] AS lon\nFROM common.powerplant p\nJOIN \n    common.fueltype f ON p.fueltype = f.id\nWHERE location IS NOT NULL\nAND p.area = '${areacode}';",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "Geo Map",
+      "type": "geomap"
     }
   ],
   "preload": false,
@@ -705,8 +946,8 @@
   },
   "timepicker": {},
   "timezone": "browser",
-  "title": "Country",
-  "uid": "be6ds6g56qzggd",
-  "version": 1,
+  "title": "Country Copy",
+  "uid": "be836x1jdw2yoc",
+  "version": 8,
   "weekStart": ""
 }
